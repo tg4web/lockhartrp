@@ -1,12 +1,9 @@
+import Hero from '../components/Hero/Hero';
 import { trpc } from '../utils/trpc';
-export default function IndexPage() {
-  const hello = trpc.hello.useQuery({ text: 'world!' });
-  if (!hello.data) {
-    return <div>Loading...</div>;
-  }
+export default function Index() {
   return (
-    <div>
-      <p>{hello.data.greeting}</p>
-    </div>
+    <>
+    <Hero />
+    </>
   );
 }
