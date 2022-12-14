@@ -1,7 +1,7 @@
 export default function Hero() {
   return (
     <>
-    <p className="text-white">Test</p>
+    <p className="flex w-full h-full justify-center items-center text-white">Currently under development...<br/> Please come back later!</p>
     </>
   );
 }

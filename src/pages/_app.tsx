@@ -1,14 +1,18 @@
-import type { AppType } from 'next/app';
+import { Session } from 'next-auth';
+import { SessionProvider } from 'next-auth/react';
+import { AppProps } from 'next/app';
+import LayoutWrapper from '../components/Wrappers/LayoutWrapper';
 import '../styles/globals.css';
 import { trpc } from '../utils/trpc';
-import LayoutWrapper from '../components/Wrapper/LayoutWrapper';
 
-const App: AppType = ({ Component, pageProps }) => {
+const App = ({ Component, pageProps }: AppProps<{ session: Session }>) => {
   return (
-    <LayoutWrapper>
-      <Component {...pageProps} />
-    </LayoutWrapper>
-  )
+    <SessionProvider session={pageProps.session} refetchInterval={60}>
+      <LayoutWrapper>
+        <Component {...pageProps} />
+      </LayoutWrapper>
+    </SessionProvider>
+  );
 };
 
 export default trpc.withTRPC(App);
