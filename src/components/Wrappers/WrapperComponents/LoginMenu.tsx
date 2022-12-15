@@ -1,4 +1,7 @@
 import { useRef } from 'react';
+import { trpc } from '../../../utils/trpc';
+import Auth from '../../../pages/Auth';
+
 export default function LoginMenu() {
   const usernameRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
@@ -8,19 +11,22 @@ export default function LoginMenu() {
     const password: string | undefined = passwordRef.current?.value;
 
     submitLoginFormInfo(username, password);
-    return
+    return;
   }
 
   async function submitLoginFormInfo(
     username: string | undefined,
     password: string | undefined
   ) {
-    if (!username || !password) {
-      return;
+    let response = await Auth(username, password);
+    if (response === true) {
+      return trpc.login.login.useQuery({
+        username: username as string,
+        password: password as string,
+      });
+    } else {
+      console.log('Auth failed');
     }
-
-    console.log(username, password);
-    //await Auth(username, password);
     return;
   }
 

@@ -15,16 +15,8 @@ export const appRouter = router({
     .query(({ input }) => {
       const { username, password } = input;
 
-      async function main(username: string, password: string) {
-        const user = prisma.userProfile.create({
-          data: {
-            username: username,
-            password: password,
-          },
-        });
-      }
       return {
-        greeting: `hello ${user.data.username}}`,
+        greeting: `hello`,
       };
     }),
 });
