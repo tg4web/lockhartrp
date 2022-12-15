@@ -18,8 +18,20 @@ model User {
   isAdmin     Role             @default(USER)
   email       String           @unique
   name        String?
-  posts       Post[]
   preferences userPreferences?
+  profile     UserProfile?
+}
+
+model UserProfile {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  profile_pic String?
+  bio       String?
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String   @unique
+  username  String   
+  password  String
 }
 
 model userPreferences {
@@ -29,17 +41,6 @@ model userPreferences {
   user      User     @relation(fields: [userId], references: [id])
   userId    String   @unique
   theme     String
-}
-
-model Post {
-  id        String   @id @default(uuid())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  published Boolean  @default(false)
-  title     String
-  content   String?
-  author    User?    @relation(fields: [authorId], references: [id])
-  authorId  String
 }
 
 enum Role {

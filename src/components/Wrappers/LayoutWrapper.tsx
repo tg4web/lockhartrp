@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import Footer from '../NavFooter/Footer';
 import NavBar from '../NavFooter/Navbar';
-import LoginMenu from './LoginMenu';
+import LoginMenu from './SubWrappers/LoginMenu';
 
 interface LayoutWrapperProps {
   children: React.ReactNode;

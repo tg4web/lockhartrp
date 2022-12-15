@@ -1,18 +1,28 @@
 import { useRef } from 'react';
-import Auth from '../helpers/auth';
-
 export default function LoginMenu() {
   const usernameRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
 
-  const username: any = usernameRef.current?.value;
-  const password: any = passwordRef.current?.value;
+  async function getLoginFormData() {
+    const username: string | undefined = usernameRef.current?.value;
+    const password: string | undefined = passwordRef.current?.value;
 
-  const submitLoginFormInfo = () => {
-    console.log('Submitting login form info...');
-    Auth(username, password);
+    submitLoginFormInfo(username, password);
+    return
+  }
+
+  async function submitLoginFormInfo(
+    username: string | undefined,
+    password: string | undefined
+  ) {
+    if (!username || !password) {
+      return;
+    }
+
+    console.log(username, password);
+    //await Auth(username, password);
     return;
-  };
+  }
 
   return (
     <div
@@ -40,7 +50,7 @@ export default function LoginMenu() {
           type="text"
         />
         <button
-          onClick={submitLoginFormInfo}
+          onClick={getLoginFormData}
           id="loginSubmitButton"
           className="m-2 p-1 w-20 hover:bg-slate-600 rounded-sm bg-slate-700 text-zinc-200"
           type="submit"
